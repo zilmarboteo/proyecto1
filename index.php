@@ -4,9 +4,5 @@
 
 require_once "controladores/plantilla.controlador.php";
 
-$plantilla = new controladorplantilla();
+$plantilla = new Controladorplantilla();
 $plantilla -> ctrTraerPlantilla();
-
-
-
-?>
