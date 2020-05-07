@@ -54,17 +54,17 @@
               <a class="nav-link" href="index.php?pagina=registro">Registro</a>
             </li>
           <?php endif ?>
-          <!-- registro  -->
-          <?php if ($_GET["pagina"] == "registro") : ?>
+          <!-- ingreso  -->
+          <?php if ($_GET["pagina"] == "ingreso") : ?>
 
             <li class="nav-item">
-              <a class="nav-link active" href="index.php?pagina=registro">Registro</a>
+              <a class="nav-link active" href="index.php?pagina=ingreso">Ingreso</a>
             </li>
 
           <?php else : ?>
 
             <li class="nav-item">
-              <a class="nav-link" href="index.php?pagina=registro">Registro</a>
+              <a class="nav-link" href="index.php?pagina=ingreso">Ingreso</a>
             </li>
           <?php endif ?>
           <!-- inicio -->
