@@ -10,11 +10,17 @@ class ControladorFormularios
 
         if (isset($_POST["registroNombre"])) {
 
-            return "ok";
+            $table = "registros";
 
+            $datos = array(
+                "nombre" => $_POST["registroNombre"],
+                "email"  => $_POST["registroEmail"],
+                "password"  => $_POST["registroPassword"]
+            );
 
+            $respuesta = ModeloFormularios::mdlRegistro($table, $datos);
 
-            //  $_POST["registroNombre"] . "<br>" . $_POST["registroEmail"] . "<br>" . $_POST["registroPassword"] . "<br>";
+            return $respuesta;
         }
     }
 }
