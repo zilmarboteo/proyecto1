@@ -3,6 +3,8 @@
 require_once "conexion.php";
 
 class ModeloFormularios
+
+
 {
 
     //registro 
@@ -30,4 +32,70 @@ class ModeloFormularios
             print_r(conexion::conectar()->errorInfo());
         }
     }
+
+    #seleccionar Registros
+
+    static public function mdlSeleccionarRegistros($table, $item, $valor)
+    {
+
+        if ($item == null && $valor == null) {
+
+            $stmt = conexion::conectar()->prepare("SELECT *, DATE_FORMAT(fecha, '%d/%m/%y') AS 
+                fecha FROM $table ORDER BY id DESC");
+
+            $stmt->execute();
+
+            return $stmt->fetchAll();
+        } else {
+
+            $stmt = conexion::conectar()->prepare("SELECT *,DATE_FORMAT(fecha, '%d/%m/%y') AS fecha 
+                FROM $table WHERE $item = :$item ORDER BY id DESC");
+
+            $stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
+
+            $stmt->execute();
+
+            return $stmt->fetch();
+        }
+    }
+
+    //actualizar registro
+
+    static public function mdlActualizarRegistro($table, $datos)
+    {
+
+        $stmt = conexion::conectar()->prepare("UPDATE $table SET nombre=:nombre, email=:email, password=:password WHERE id = :id");
+
+
+        $stmt->bindParam("nombre", $datos["nombre"], PDO::PARAM_STR);
+        $stmt->bindParam("email", $datos["email"], PDO::PARAM_STR);
+        $stmt->bindParam("password", $datos["password"], PDO::PARAM_STR);
+        $stmt->bindParam("id", $datos["id"], PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            return "ok";
+        } else {
+            print_r(conexion::conectar()->errorInfo());
+        }
+    }
+
+    //Eliminar registro
+
+    static public function mdlEliminarRegistro($table, $valor)
+    {
+
+        $stmt = conexion::conectar()->prepare("DELETE FROM  $table WHERE id = :id");
+
+        $stmt->bindParam(":id", $valor, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+
+            return "ok";
+
+        } else {
+            
+            print_r(conexion::conectar()->errorInfo());
+        }
+    }
+
 }
